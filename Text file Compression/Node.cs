@@ -6,11 +6,13 @@ using System.Threading.Tasks;
 
 namespace Text_file_Compression
 {
-    class Node
+    class Node: IComparable<Node>
     {
         public string symbol;
         public int frequency;
-        public Node Left, Right, Parent;
+        public Node Left;
+        public Node Right;
+        public Node Parent;
         public string bitcode;
         public bool isleaf;
         public Node(string input)
@@ -23,31 +25,31 @@ namespace Text_file_Compression
             bitcode = "";
             isleaf = true;
         }
-        public Node(Node Zero, Node One)
+        public Node(Node Node1, Node Node2)
         {
             Parent = null;
             bitcode = "";
             isleaf = false;
-            if (Zero.frequency >= One.frequency)
+            if (Node1.frequency >= Node2.frequency)
             {
-                Right = Zero;
-                Left = One;
+                Right = Node1;
+                Left = Node2;
                 Right.Parent = Left.Parent = this;
-                frequency = Zero.frequency + One.frequency;
-                symbol = Zero.symbol + One.symbol;
+                frequency = Node1.frequency + Node2.frequency;
+                symbol = Node1.symbol + Node2.symbol;
             }
-            else if (Zero.frequency < One.frequency )
+            else if (Node1.frequency < Node2.frequency)
             {
-                Right = One;
-                Left = Zero;
+                Right = Node2;
+                Left = Node1;
                 Right.Parent = Left.Parent = this;
-                frequency = Zero.frequency + One.frequency;
-                symbol = Zero.symbol + One.symbol;
+                frequency = Node1.frequency + Node2.frequency;
+                symbol = Node1.symbol + Node2.symbol;
             }
         }
-        public int CompareTo(Node n)
+        public int CompareTo(Node node)
         {
-            return this.frequency.CompareTo(n.frequency);
+            return this.frequency.CompareTo(node.frequency);
         }
         public void FrequencyIncrement()
         {
@@ -55,3 +57,4 @@ namespace Text_file_Compression
         }
     }
 }
+

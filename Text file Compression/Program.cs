@@ -10,6 +10,45 @@ namespace Text_file_Compression
     {
         static void Main(string[] args)
         {
+            Console.Title = "Huffman Code";
+            List<Node> nodeList;
+            Tree tree = new Tree();
+            while (true)
+            {
+                Console.Clear();
+                nodeList = tree.getListFromFile();
+                if (nodeList == null)
+                {
+                  
+                    Console.WriteLine("File cannot be read!");
+                    Console.WriteLine("Pressthe any key to continue or Enter \"E\" to exit the program.");
+                    string choise = Console.ReadLine();
+                    if (choise.ToLower() == "e")
+                        break;
+                    else
+                        continue;
+                }
+                else
+                {
+                    Console.Clear();
+                    Console.WriteLine("#Symbols   -   #Frequency");
+                    tree.PrintFrequency(nodeList);
+                    tree.TreeList(nodeList);
+                    tree.setBitcode("", nodeList[0]);
+                    Console.WriteLine("\n\n");
+                    Console.WriteLine("\n\n#Symbols    -    #Codes\n");
+                    tree.Printcode(nodeList[0]);
+                    Console.WriteLine("\n\n");
+                    Console.WriteLine("Press the any key to contunie");
+                    Console.WriteLine("Enter the\"E\" to exit the program.");
+                    string choise = Console.ReadLine();
+                    if (choise.ToLower() == "e")
+                        break;
+                    else
+                        continue;
+
+                }
+            }
         }
     }
 }
