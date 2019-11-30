@@ -21,12 +21,14 @@ namespace GUI_AOA
         {
             Form2 openform = new Form2();
             openform.Show();
+            this.Hide();
         }
 
         private void button3_Click(object sender, EventArgs e)
         {
             Form4 openform = new Form4();
             openform.Show();
+            this.Hide();
         }
     }
 }

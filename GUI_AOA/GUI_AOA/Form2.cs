@@ -31,6 +31,7 @@ namespace GUI_AOA
         {
             Form3 openform = new Form3();
             openform.Show();
+            this.Hide();
 
         }
 
@@ -38,6 +39,7 @@ namespace GUI_AOA
         {
             Form4 openform = new Form4();
             openform.Show();
+            this.Hide();
 
         }
     }
