@@ -1,20 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.IO;
 
-namespace Text_file_Compression
+namespace GUI_AOA
 {
-    class Tree
+    class Tree:Form3
     {
         public List<Node> getListFromFile()
         {
-            List<Node> nodeList = new List<Node>();  // Node List.
-            Console.WriteLine("Example file: \"a.txt\"\n");
-            Console.Write("Enter the path of the file: ");
-            String filename = Console.ReadLine();
+            List<Node> nodeList = new List<Node>();
+            String filename = Item; 
             try
             {
                 FileStream stream = new FileStream(filename, FileMode.Open, FileAccess.Read);
@@ -22,25 +20,24 @@ namespace Text_file_Compression
                 {
                     string read = Convert.ToChar(stream.ReadByte()).ToString();
                     if (nodeList.Exists(x => x.symbol == read))
-                        nodeList[nodeList.FindIndex(y => y.symbol == read)].FrequencyIncrement(); 
+                        nodeList[nodeList.FindIndex(y => y.symbol == read)].FrequencyIncrement();
                     else
-                        nodeList.Add(new Node(read));  
+                        nodeList.Add(new Node(read));
                 }
-                nodeList.Sort();   
+                nodeList.Sort();
                 return nodeList;
-                
+
 
             }
             catch (Exception)
             {
                 return null;
             }
-              
+
         }
         public void Filewrite()
         {
             StreamWriter File = new StreamWriter(@"C:\Users\Pisces Khan\OneDrive\Documents\GitHub\AOA-Project\Text file Compression\Copy.txt");
-            File.Write("Hi");
             File.Close();
         }
         public void TreeList(List<Node> n)
@@ -84,6 +81,5 @@ namespace Text_file_Compression
             Printcode(node.Left);
             Printcode(node.Right);
         }
-
     }
 }

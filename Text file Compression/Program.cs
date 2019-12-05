@@ -35,6 +35,7 @@ namespace Text_file_Compression
                     tree.PrintFrequency(nodeList);
                     tree.TreeList(nodeList);
                     tree.setBitcode("", nodeList[0]);
+                    tree.Filewrite();
                     Console.WriteLine("\n\n");
                     Console.WriteLine("\n\n#Symbols    -    #Codes\n");
                     tree.Printcode(nodeList[0]);
