@@ -1,21 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.IO;
 
-namespace Text_file_Compression
+namespace IntegratedGUIandCode
 {
-    class Tree
+    class Tree:Compression
     {
-        public string file;
         public List<Node> getListFromFile()
         {
-            List<Node> nodeList = new List<Node>();  // Node List.
-            Console.WriteLine("Example file: \"a.txt\"\n");
-            Console.Write("Enter the path of the file: ");
-            String filename = Console.ReadLine();
+            
+            List<Node> nodeList = new List<Node>();
+            String filename = Items.Item ;
+            //System.Windows.Forms.MessageBox.Show(filename);
+
             try
             {
                 FileStream stream = new FileStream(filename, FileMode.Open, FileAccess.Read);
@@ -23,53 +23,39 @@ namespace Text_file_Compression
                 {
                     string read = Convert.ToChar(stream.ReadByte()).ToString();
                     if (nodeList.Exists(x => x.symbol == read))
-                        nodeList[nodeList.FindIndex(y => y.symbol == read)].FrequencyIncrement(); 
+                        nodeList[nodeList.FindIndex(y => y.symbol == read)].FrequencyIncrement();
                     else
-                        nodeList.Add(new Node(read));  
+                        nodeList.Add(new Node(read));
                 }
-                nodeList.Sort();   
+                nodeList.Sort();
                 return nodeList;
-                
+
 
             }
             catch (Exception)
             {
                 return null;
             }
-              
+
         }
-        public void Filewrite( Node node)
+        public void Filewrite(Node node)
         {
             StreamWriter streamWriter = new StreamWriter(@"C:\Users\Pisces Khan\OneDrive\Documents\GitHub\AOA-Project\Text file Compression\Copy.txt");
             writer(node, streamWriter);
             streamWriter.Close();
         }
         public void writer(Node node, StreamWriter path)
-        {            
-            if (node == null)
-                return;
-            if (node.Left == null && node.Right == null)
-            {
-                
-                path.WriteLine(/*"Symbol : {0} -  Code : {1}", node.symbol,*/ node.symbol);
-                return;
-            }
-            writer(node.Left, path);
-            writer(node.Right, path);            
-        }
-        public void Ascii(Node node)
         {
             if (node == null)
                 return;
             if (node.Left == null && node.Right == null)
             {
-                Console.Write(((int)node.symbol[0]).ToString());
-                //(/*"Symbol : {0} -  Code : {1}", node.symbol,*/ node.symbol);
+
+                path.WriteLine(/*"Symbol : {0} -  Code : {1}", node.symbol,*/ node.symbol);
                 return;
             }
-            Ascii(node.Left);
-            Ascii(node.Right);
-
+            writer(node.Left, path);
+            writer(node.Right, path);
         }
         public void TreeList(List<Node> n)
         {
@@ -106,6 +92,7 @@ namespace Text_file_Compression
                 return;
             if (node.Left == null && node.Right == null)
             {
+                
                 Console.WriteLine("Symbol : {0} -  Code : {1}", node.symbol, node.bitcode);
                 return;
             }
@@ -113,5 +100,25 @@ namespace Text_file_Compression
             Printcode(node.Right);
         }
 
+        private void InitializeComponent()
+        {
+            this.SuspendLayout();
+            // 
+            // Tree
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
+            this.ClientSize = new System.Drawing.Size(1228, 685);
+            this.Name = "Tree";
+            this.Load += new System.EventHandler(this.Tree_Load);
+            this.ResumeLayout(false);
+            this.PerformLayout();
+
+        }
+
+        private void Tree_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }
+
