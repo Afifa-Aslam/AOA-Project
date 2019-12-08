@@ -14,6 +14,7 @@ namespace Text_file_Compression
         public Node Right;
         public Node Parent;
         public string bitcode;
+        public string ascii;
         public bool isleaf;
         public Node(string input)
         {

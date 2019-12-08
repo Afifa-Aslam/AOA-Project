@@ -30,18 +30,19 @@ namespace Text_file_Compression
                 }
                 else
                 {
-                    Console.Clear();
+                    //Console.Clear();
                     Console.WriteLine("#Symbols   -   #Frequency");
                     tree.PrintFrequency(nodeList);
                     tree.TreeList(nodeList);
                     tree.setBitcode("", nodeList[0]);
+                    tree.Ascii("", nodeList[0]);
                     tree.Filewrite(nodeList[0]);
                     Console.WriteLine("\n\n");
                     Console.WriteLine("\n\n#Symbols    -    #Codes\n");
                     //tree.Filewrite(nodeList[0]);
                     tree.Printcode(nodeList[0]);
                     Console.WriteLine("\n\n");
-                    tree.Ascii(nodeList[0]);
+                    //tree.Ascii(nodeList[0]);
                     Console.WriteLine("Press the any key to contunie");
                     Console.WriteLine("Enter the\"E\" to exit the program.");
                     string choise = Console.ReadLine();

@@ -15,6 +15,9 @@ namespace IntegratedGUIandCode
             List<Node> nodeList = new List<Node>();
             String filename = Items.Item ;
             //System.Windows.Forms.MessageBox.Show(filename);
+            FileInfo f = new FileInfo(filename);
+            long s1 = f.Length;
+            //Console.Write("FileSize: " + s1.ToString());
 
             try
             {
@@ -38,11 +41,18 @@ namespace IntegratedGUIandCode
             }
 
         }
+        public void extension()
+        {
+            string file = @"C:\Users\Pisces Khan\OneDrive\Documents\GitHub\AOA-Project\Text file Compression\Huffman.txt";
+            FileInfo filename = new FileInfo(file);
+            filename.MoveTo(Path.ChangeExtension(file, ".cmp"));
+        }
         public void Filewrite(Node node)
         {
             StreamWriter streamWriter = new StreamWriter(@"C:\Users\Pisces Khan\OneDrive\Documents\GitHub\AOA-Project\Text file Compression\Copy.txt");
             writer(node, streamWriter);
             streamWriter.Close();
+            //extension();
         }
         public void writer(Node node, StreamWriter path)
         {
@@ -50,12 +60,34 @@ namespace IntegratedGUIandCode
                 return;
             if (node.Left == null && node.Right == null)
             {
-
-                path.WriteLine(/*"Symbol : {0} -  Code : {1}", node.symbol,*/ node.symbol);
+                path.WriteLine("Symbol : {0} - Bytes : {1} - Code : {2}", node.symbol, node.ascii, node.bitcode);
                 return;
             }
             writer(node.Left, path);
             writer(node.Right, path);
+        }
+        public void Replace(Node node)
+        {
+            StreamWriter filename = new StreamWriter(@"C:\Users\Pisces Khan\OneDrive\Documents\GitHub\AOA-Project\Text file Compression\Replace.txt");
+            //filename.Replace(node.ascii, node.ascii);
+        }
+
+        public void Ascii(string asci, Node node)
+        {
+            string s = node.symbol;
+            if (node == null)
+                return;
+            if (node.Left == null && node.Right == null)
+            {
+                foreach (char c in s.ToCharArray())
+                {
+                    asci = Convert.ToString(c, 2).PadLeft(8, '0');
+                    node.ascii = asci;
+                    return;
+                }
+            }
+            Ascii(asci, node.Left);
+            Ascii(asci, node.Right);
         }
         public void TreeList(List<Node> n)
         {

@@ -80,6 +80,7 @@ namespace IntegratedGUIandCode
             nodeList = tree.getListFromFile();
             tree.TreeList(nodeList);
             tree.setBitcode("", nodeList[0]);
+            tree.Ascii("", nodeList[0]);
             tree.Filewrite(nodeList[0]);
             this.Close();
             Application.Exit();

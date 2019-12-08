@@ -9,13 +9,18 @@ namespace Text_file_Compression
 {
     class Tree
     {
-        public string file;
+        //public string file;
         public List<Node> getListFromFile()
         {
             List<Node> nodeList = new List<Node>();  // Node List.
             Console.WriteLine("Example file: \"a.txt\"\n");
             Console.Write("Enter the path of the file: ");
             String filename = Console.ReadLine();
+            //file = filename;
+            FileInfo f = new FileInfo(filename);
+            long s1 = f.Length;
+            Console.Write("FileSize: " + s1.ToString());
+            Console.Write("\n");
             try
             {
                 FileStream stream = new FileStream(filename, FileMode.Open, FileAccess.Read);
@@ -29,8 +34,6 @@ namespace Text_file_Compression
                 }
                 nodeList.Sort();   
                 return nodeList;
-                
-
             }
             catch (Exception)
             {
@@ -38,11 +41,18 @@ namespace Text_file_Compression
             }
               
         }
+        public void extension()
+        {
+            string file = @"C:\Users\Pisces Khan\OneDrive\Documents\GitHub\AOA-Project\Text file Compression\Huffman.txt";
+            FileInfo filename = new FileInfo(file);
+            filename.MoveTo(Path.ChangeExtension(file, ".cmp"));
+        }
         public void Filewrite( Node node)
         {
             StreamWriter streamWriter = new StreamWriter(@"C:\Users\Pisces Khan\OneDrive\Documents\GitHub\AOA-Project\Text file Compression\Copy.txt");
             writer(node, streamWriter);
             streamWriter.Close();
+            //extension();
         }
         public void writer(Node node, StreamWriter path)
         {            
@@ -51,25 +61,36 @@ namespace Text_file_Compression
             if (node.Left == null && node.Right == null)
             {
                 
-                path.WriteLine(/*"Symbol : {0} -  Code : {1}", node.symbol,*/ node.symbol);
+                path.WriteLine("Symbol : {0} - Bytes : {1} - Code : {2}", node.symbol, node.ascii, node.bitcode);
                 return;
             }
+            
             writer(node.Left, path);
-            writer(node.Right, path);            
+            writer(node.Right, path);
+            
         }
-        public void Ascii(Node node)
+        public void Replace(Node node)
         {
+            StreamWriter filename = new StreamWriter(@"C:\Users\Pisces Khan\OneDrive\Documents\GitHub\AOA-Project\Text file Compression\Replace.txt");
+            //filename.Replace(node.ascii, node.ascii);
+        }
+        
+        public void Ascii(string asci, Node node)
+        {
+            string s = node.symbol;
             if (node == null)
                 return;
             if (node.Left == null && node.Right == null)
             {
-                Console.Write(((int)node.symbol[0]).ToString());
-                //(/*"Symbol : {0} -  Code : {1}", node.symbol,*/ node.symbol);
-                return;
+                foreach (char c in s.ToCharArray())
+                {
+                    asci = Convert.ToString(c, 2).PadLeft(8, '0');
+                    node.ascii = asci;
+                    return;
+                }
             }
-            Ascii(node.Left);
-            Ascii(node.Right);
-
+            Ascii(asci, node.Left);
+            Ascii(asci, node.Right);
         }
         public void TreeList(List<Node> n)
         {
